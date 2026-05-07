@@ -96,8 +96,6 @@ The API starts on:
 - HTTP: `http://localhost:5174`
 - HTTPS: `https://localhost:7205`
 
-The OpenAPI spec is available at `/openapi/v1.json` in development.
-
 ---
 
 ## Running the Tests
