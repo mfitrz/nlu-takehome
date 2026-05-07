@@ -1,0 +1,55 @@
+@NLUTakehome_HostAddress = http://localhost:5174
+
+### GET - violations only (not a scofflaw)
+GET {{NLUTakehome_HostAddress}}/property/7120 s rockwell st
+Accept: application/json
+
+###
+
+### GET - scofflaw with violations (IsScofflaw: true)
+GET {{NLUTakehome_HostAddress}}/property/7700 s south shore dr
+Accept: application/json
+
+###
+
+### GET - 404 (fake address)
+GET {{NLUTakehome_HostAddress}}/property/123 fake st
+Accept: application/json
+
+###
+
+### POST - comment on valid address
+POST {{NLUTakehome_HostAddress}}/property/7700 s south shore dr/comments
+Content-Type: application/json
+
+{
+    "author": "inspector jane",
+    "comment": "Repeated violations at this property."
+}
+
+###
+
+### POST - comment on nonexistent address (should 404)
+POST {{NLUTakehome_HostAddress}}/property/123 fake st/comments
+Content-Type: application/json
+
+{
+    "author": "test",
+    "comment": "This should fail."
+}
+
+###
+
+### POST - missing fields (should 400)
+POST {{NLUTakehome_HostAddress}}/property/7700 s south shore dr/comments
+Content-Type: application/json
+
+{}
+
+###
+
+### GET - scofflaw violations since date
+GET {{NLUTakehome_HostAddress}}/property/scofflaws/violations?since=2024-01-01
+Accept: application/json
+
+###
