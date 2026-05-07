@@ -112,7 +112,7 @@ All 29 tests run without a live database. Endpoint tests use `WebApplicationFact
 
 - **No ORM.** All database access uses raw `Npgsql` commands with parameterized queries.
 - **Address normalization.** All addresses are lowercased and trimmed at parse time (ingestion) and at request time (API), so `JOIN`s between `violations` and `scofflaws` are reliable.
-- **Scofflaw flag.** The `GET /property/{address}` endpoint determines scofflaw status via a `LEFT JOIN` to the `scofflaws` table — no separate query needed.
+- **Scofflaw flag.** The `GET /property/{address}` endpoint determines scofflaw status via a `LEFT JOIN` to the `scofflaws` table.
 - **Batch ingestion.** Records are inserted in batches of 1,000 using parameterized multi-row `INSERT ... ON CONFLICT DO NOTHING` statements for both datasets.
 - **POST sanitization.** Comment inputs are validated (non-empty author and comment text) and trimmed before insertion. All values are passed as parameters — no string interpolation in SQL.
 - **Indexes.** `violations(address)`, `violations(violation_date)`, `scofflaws(address)`, and `comments(address)` are indexed for query performance.
